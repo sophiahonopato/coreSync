@@ -1,0 +1,372 @@
+.blog-page{
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: #05070b;
+    color: #fff;
+    overflow: hidden;
+}
+
+.blog-page::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("../../assets/images/fundoblog.png") center/cover no-repeat;
+    opacity: .08;
+    z-index: 0;
+}
+
+.blog-page>*{
+    position: relative;
+    z-index: 2;
+}
+
+/* ================= HERO ================= */
+
+.blog-hero{
+    max-width: 1050px;
+    margin: 0 auto;
+
+    padding: 180px 8% 70px;
+
+    text-align: center;
+}
+
+.blog-category{
+    display: inline-block;
+
+    padding: 8px 18px;
+
+    border-radius: 999px;
+
+    background: rgba(0,200,255,.12);
+
+    border: 1px solid rgba(0,200,255,.35);
+
+    color: #41d9ff;
+
+    font-size: 14px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 30px;
+}
+
+.blog-hero h1{
+    font-size: 72px;
+    line-height: 1.05;
+    font-weight: 700;
+
+    margin-bottom: 35px;
+}
+
+.blog-meta{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+
+    flex-wrap: wrap;
+
+    color: #a8a8a8;
+
+    font-size: 15px;
+}
+
+/* ================= CAPA ================= */
+
+.blog-cover{
+    width: 100%;
+    max-width: 1300px;
+
+    margin: auto;
+
+    padding: 0 8%;
+}
+
+.blog-cover img{
+    width: 100%;
+
+    border-radius: 28px;
+
+    display: block;
+
+    box-shadow:
+    0 30px 80px rgba(0,0,0,.55),
+    0 0 60px rgba(0,170,255,.12);
+}
+
+/* ================= CONTEUDO ================= */
+
+.blog-content{
+    width: 100%;
+    max-width: 900px;
+
+    margin: auto;
+
+    padding: 90px 8% 130px;
+}
+
+.blog-content h2{
+    font-size: 42px;
+
+    margin-top: 70px;
+    margin-bottom: 22px;
+
+    color: #fff;
+}
+
+.blog-content h3{
+    font-size: 30px;
+
+    margin-bottom: 20px;
+}
+
+.blog-content p{
+    color: #cfcfcf;
+
+    font-size: 20px;
+
+    line-height: 2;
+
+    margin-bottom: 28px;
+}
+
+.blog-intro{
+    font-size: 24px !important;
+
+    color: #ececec !important;
+
+    line-height: 2;
+}
+
+/* ================= IMAGENS ================= */
+
+.content-image{
+    width: 100%;
+
+    border-radius: 22px;
+
+    margin: 60px 0;
+
+    box-shadow: 0 25px 55px rgba(0,0,0,.45);
+
+    transition: .35s;
+}
+
+.content-image:hover{
+    transform: scale(1.02);
+}
+
+/* ================= CITAÇÃO ================= */
+
+blockquote{
+
+    margin: 60px 0;
+
+    padding: 35px 45px;
+
+    border-left: 5px solid #1fd8ff;
+
+    background: rgba(255,255,255,.04);
+
+    border-radius: 16px;
+
+    font-size: 28px;
+
+    line-height: 1.7;
+
+    color: white;
+
+    font-style: italic;
+}
+
+/* ================= BOX ================= */
+
+.highlight-box{
+
+    margin: 55px 0;
+
+    padding: 35px;
+
+    border-radius: 22px;
+
+    background: rgba(255,255,255,.04);
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    backdrop-filter: blur(15px);
+}
+
+.highlight-box h3{
+    margin-bottom: 25px;
+}
+
+.highlight-box ul{
+
+    padding-left: 20px;
+}
+
+.highlight-box li{
+
+    color: #d7d7d7;
+
+    font-size: 18px;
+
+    line-height: 2;
+}
+
+/* ================= RELACIONADOS ================= */
+
+.related-posts{
+
+    width: 100%;
+    max-width: 1400px;
+
+    margin: auto;
+
+    padding: 0 8% 140px;
+}
+
+.related-posts h2{
+
+    font-size: 48px;
+
+    margin-bottom: 45px;
+
+    text-align: center;
+}
+
+.related-grid{
+
+    display: grid;
+
+    grid-template-columns: repeat(3,1fr);
+
+    gap: 35px;
+}
+
+.related-card{
+
+    overflow: hidden;
+
+    border-radius: 24px;
+
+    background: rgba(255,255,255,.04);
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    backdrop-filter: blur(18px);
+
+    transition: .35s;
+
+    cursor: pointer;
+}
+
+.related-card:hover{
+
+    transform: translateY(-12px);
+
+    border-color: #25d8ff;
+
+    box-shadow: 0 0 40px rgba(37,216,255,.18);
+}
+
+.related-card img{
+
+    width: 100%;
+
+    height: 230px;
+
+    object-fit: cover;
+
+    transition: .4s;
+}
+
+.related-card:hover img{
+
+    transform: scale(1.06);
+}
+
+.related-card h3{
+
+    padding: 28px;
+
+    font-size: 28px;
+
+    color: white;
+}
+
+/* ================= RESPONSIVO ================= */
+
+@media(max-width:1100px){
+
+.blog-hero h1{
+
+font-size:56px;
+
+}
+
+.related-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.blog-content{
+
+max-width:100%;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.blog-hero{
+
+padding-top:140px;
+
+}
+
+.blog-hero h1{
+
+font-size:42px;
+
+}
+
+.blog-content p{
+
+font-size:17px;
+
+}
+
+.blog-intro{
+
+font-size:20px!important;
+
+}
+
+blockquote{
+
+font-size:22px;
+
+padding:25px;
+
+}
+
+.related-posts h2{
+
+font-size:36px;
+
+}
+
+.blog-content h2{
+
+font-size:34px;
+
+}
+
+}

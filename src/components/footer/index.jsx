@@ -1,8 +1,5 @@
 import "./style.css";
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
 
 import Logo from "../../assets/images/logo.png";
 import IconFooter from "../../assets/images/iconFooter.png";
@@ -11,103 +8,19 @@ import Whatsapp from "../../assets/images/whatsapp.png";
 import Youtube from "../../assets/images/youtube.png";
 import Twitter from "../../assets/images/twitter.png";
 
-gsap.registerPlugin(ScrollTrigger);
-
 const Footer = () => {
-  const footerRef = useRef();
-
-  useGSAP(() => {
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: footerRef.current,
-        start: "top 75%",
-        toggleActions: "play none none reverse",
-      }
-    });
-
-    tl.from(".footer-texto", {
-      x: -120,
-      opacity: 0,
-      duration: 1,
-      ease: "power3.out"
-    })
-
-    .from(".footer-robo", {
-      scale: .5,
-      rotate: -20,
-      opacity: 0,
-      duration: .8,
-      ease: "back.out(1.8)"
-    }, "-=.5")
-
-    .from(".footer-form input, .footer-form textarea, .footer-form button, .footer-form span", {
-      y: 40,
-      opacity: 0,
-      stagger: .08,
-      duration: .6,
-      ease: "power2.out"
-    }, "-=.4")
-
-    .from(".footer-logo", {
-      opacity: 0,
-      y: 30,
-      duration: .7
-    })
-
-    .from(".footer-links > div", {
-      opacity: 0,
-      y: 30,
-      stagger: .15,
-      duration: .7
-    }, "-=.4")
-
-    .from(".footer-redes img", {
-      opacity: 0,
-      scale: 0,
-      stagger: .1,
-      duration: .5,
-      ease: "back.out(2)"
-    }, "-=.4")
-
-    .from(".linha-footer", {
-      scaleX: 0,
-      transformOrigin: "left",
-      duration: .8
-    })
-
-    .from(".copyright", {
-      opacity: 0,
-      y: 20,
-      duration: .5
-    });
-
-    gsap.to(".footer-robo img", {
-      y: -12,
-      duration: 2.5,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut"
-    });
-
-    gsap.to(".footer-redes img", {
-      y: -6,
-      duration: 1.8,
-      repeat: -1,
-      yoyo: true,
-      stagger: .15,
-      ease: "sine.inOut"
-    });
-
-  }, []);
-
   return (
-    <footer className="footer" ref={footerRef}>
+    <footer className="footer">
 
       <div className="footer-top">
 
-        <div className="footer-texto">
-
+        <motion.div
+          className="footer-texto"
+          initial={{ opacity: 0, x: -80 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <h1>
             Pronto para automatizar sua operação?
           </h1>
@@ -117,16 +30,39 @@ const Footer = () => {
             monitoramento em tempo real e uma plataforma criada
             para escalar junto com o seu negócio.
           </p>
-
-        </div>
+        </motion.div>
 
         <div className="footer-conteudo">
 
-          <div className="footer-robo">
-            <img src={IconFooter} alt="" />
-          </div>
+          <motion.div
+            className="footer-robo"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <motion.img
+              src={IconFooter}
+              alt=""
+              animate={{ y: [0, -10, 0] }}
+              transition={{
+                duration: 2.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          </motion.div>
 
-          <div className="footer-form">
+          <motion.div
+            className="footer-form"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.2,
+            }}
+            viewport={{ once: true }}
+          >
 
             <input type="text" placeholder="Nome completo" />
             <input type="email" placeholder="Email corporativo" />
@@ -138,30 +74,54 @@ const Footer = () => {
               placeholder="Mensagem (opcional)"
             />
 
-            <button>
-              Solicitar demonstração
-            </button>
+            <motion.a
+              href="https://www.linkedin.com/in/sophia-honorato-ribeiro-0114b936a/"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{
+                scale: 1.04,
+                y: -2,
+              }}
+              whileTap={{
+                scale: 0.96,
+              }}
+              style={{ textDecoration: "none" }}
+            >
+              <button>
+                Solicitar demonstração
+              </button>
+            </motion.a>
 
             <span>
               Seus dados estão protegidos. Não enviamos spam.
             </span>
 
-          </div>
+          </motion.div>
 
         </div>
 
       </div>
 
-      <div className="footer-bottom">
+      <motion.div
+        className="footer-bottom"
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 0.8,
+          delay: 0.2,
+        }}
+        viewport={{ once: true }}
+      >
 
         <div className="footer-logo">
-          <img src={Logo} alt="" />
+          <img src={Logo} alt="CoreSync AI" />
         </div>
 
         <div className="footer-links">
 
           <div>
             <h3>Soluções</h3>
+
             <a href="">Monitoramento em Tempo Real</a>
             <a href="">Integração de Sistemas</a>
             <a href="">Automação Inteligente</a>
@@ -169,6 +129,7 @@ const Footer = () => {
 
           <div>
             <h3>Empresa</h3>
+
             <a href="">Sobre Nós</a>
             <a href="">Blog & Insights</a>
             <a href="">Carreiras</a>
@@ -176,6 +137,7 @@ const Footer = () => {
 
           <div>
             <h3>Regulamentação</h3>
+
             <a href="">Boas Práticas</a>
             <a href="">Política de Privacidade</a>
             <a href="">Termos de Uso</a>
@@ -185,20 +147,106 @@ const Footer = () => {
 
         <div className="footer-redes">
 
-          <img src={Whatsapp} alt="" />
-          <img src={Linkedin} alt="" />
-          <img src={Youtube} alt="" />
-          <img src={Twitter} alt="" />
+          <motion.a
+            href="https://www.linkedin.com/in/sophia-honorato-ribeiro-0114b936a/"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ y: -6, scale: 1.15 }}
+          >
+            <motion.img
+              src={Whatsapp}
+              alt="WhatsApp"
+              animate={{ y: [0, -4, 0] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          </motion.a>
+
+          <motion.a
+            href="https://www.linkedin.com/in/sophia-honorato-ribeiro-0114b936a/"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ y: -6, scale: 1.15 }}
+          >
+            <motion.img
+              src={Linkedin}
+              alt="LinkedIn"
+              animate={{ y: [0, -4, 0] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                delay: 0.2,
+                ease: "easeInOut",
+              }}
+            />
+          </motion.a>
+
+          <motion.a
+            href="https://www.linkedin.com/in/sophia-honorato-ribeiro-0114b936a/"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ y: -6, scale: 1.15 }}
+          >
+            <motion.img
+              src={Youtube}
+              alt="YouTube"
+              animate={{ y: [0, -4, 0] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                delay: 0.4,
+                ease: "easeInOut",
+              }}
+            />
+          </motion.a>
+
+          <motion.a
+            href="https://www.linkedin.com/in/sophia-honorato-ribeiro-0114b936a/"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ y: -6, scale: 1.15 }}
+          >
+            <motion.img
+              src={Twitter}
+              alt="Twitter"
+              animate={{ y: [0, -4, 0] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                delay: 0.6,
+                ease: "easeInOut",
+              }}
+            />
+          </motion.a>
 
         </div>
 
-      </div>
+      </motion.div>
 
-      <div className="linha-footer"></div>
+      <motion.div
+        className="linha-footer"
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        style={{ transformOrigin: "left" }}
+      />
 
-      <div className="copyright">
-        <p>2026 CoreSync.</p>
-      </div>
+      <motion.div
+        className="copyright"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{
+          duration: 0.6,
+          delay: 0.3,
+        }}
+        viewport={{ once: true }}
+      >
+        <p>© 2026 CoreSync. Todos os direitos reservados.</p>
+      </motion.div>
 
     </footer>
   );

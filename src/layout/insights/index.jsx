@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import "./style.css";
 
 import Blog1 from "../../assets/images/blog1.png";
@@ -26,11 +27,41 @@ const cards = [
   }
 ];
 
+const container = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+};
+
+const item = {
+  hidden: {
+    opacity: 0,
+    y: 60
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: "easeOut"
+    }
+  }
+};
+
 const Insights = () => {
   return (
     <section className="container-insights">
 
-      <div className="titulo-insights">
+      <motion.div
+        className="titulo-insights"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true, amount: 0.3 }}
+      >
 
         <h1>Insights sobre o futuro da automação.</h1>
 
@@ -39,17 +70,46 @@ const Insights = () => {
           inteligência artificial e transformação digital.
         </p>
 
-      </div>
+      </motion.div>
 
-      <div className="cards-insights">
+      <motion.div
+        className="cards-insights"
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+      >
 
         {cards.map((card, index) => (
 
-          <div className="card-insight" key={index}>
+          <motion.div
+            key={index}
+            className="card-insight"
+            variants={item}
+            whileHover={{
+              y: -12,
+              scale: 1.02,
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 260,
+            }}
+          >
 
             <div className="image">
 
-              <img src={card.image} alt="" />
+              <motion.img
+                src={card.image}
+                alt=""
+                animate={{
+                  y: [0, -8, 0]
+                }}
+                transition={{
+                  duration: 2.8,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
 
             </div>
 
@@ -68,15 +128,24 @@ const Insights = () => {
 
               <p>{card.text}</p>
 
-              <button>Ler artigo</button>
+              <motion.button
+                whileHover={{
+                  scale: 1.05
+                }}
+                whileTap={{
+                  scale: 0.95
+                }}
+              >
+                Ler artigo
+              </motion.button>
 
             </div>
 
-          </div>
+          </motion.div>
 
         ))}
 
-      </div>
+      </motion.div>
 
     </section>
   );

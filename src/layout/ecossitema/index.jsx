@@ -1,248 +1,160 @@
-import React, { useRef } from "react";
+import React from "react";
 import "./style.css";
+import { motion } from "framer-motion";
 
 import RoboEco from "../../assets/images/sectionRobo1.png";
 import IntegracaoEco from "../../assets/images/sectionIntegracao2.png";
 import PlataformaEco from "../../assets/images/sectionPlataforma3.png";
 import AnaliseEco from "../../assets/images/sectionAnalise4.png";
 
-import Plasma from "../../plasma/Plasma";
+const cards = [
+  {
+    img: RoboEco,
+    numero: "01",
+    titulo: "Robótica Autônoma",
+    texto:
+      "Robôs inteligentes com sensores avançados, navegação autônoma e decisões em tempo real.",
+    footer: "Disponibilidade • 24/7",
+  },
+  {
+    img: IntegracaoEco,
+    numero: "02",
+    titulo: "Integração Empresarial",
+    texto:
+      "Conecte ERPs, CRMs e plataformas corporativas através de APIs inteligentes.",
+    footer: "APIs • Cloud • ERP",
+  },
+  {
+    img: PlataformaEco,
+    numero: "03",
+    titulo: "Controle Centralizado",
+    texto:
+      "Dashboard completo para acompanhar operações, robôs e indicadores em tempo real.",
+    footer: "Dashboard Inteligente",
+  },
+  {
+    img: AnaliseEco,
+    numero: "04",
+    titulo: "Análise Inteligente",
+    texto:
+      "IA identifica padrões operacionais e antecipa falhas antes que aconteçam.",
+    footer: "Machine Learning",
+  },
+];
 
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+const container = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.18,
+    },
+  },
+};
 
-gsap.registerPlugin(ScrollTrigger);
+const item = {
+  hidden: {
+    opacity: 0,
+    y: 60,
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: "easeOut",
+    },
+  },
+};
 
 const Ecossistema = () => {
+  return (
+    <section className="container-eco">
 
-    const sectionRef = useRef();
+      <div className="conteudo-eco">
 
-    useGSAP(() => {
+        <motion.div
+          className="container-textos"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: .8 }}
+          viewport={{ once: true, amount: .3 }}
+        >
 
-        gsap.from(".titulo-ecossistema h1", {
-            scrollTrigger: {
-                trigger: sectionRef.current,
-                start: "top 75%"
-            },
-            y: 80,
-            opacity: 0,
-            duration: 1,
-            ease: "power4.out"
-        });
+          <div className="titulo-ecossistema">
+            <h1>Um ecossistema completo de automação inteligente.</h1>
+          </div>
 
-        gsap.from(".texto-ecossistema", {
-            scrollTrigger: {
-                trigger: sectionRef.current,
-                start: "top 75%"
-            },
-            y: 40,
-            opacity: 0,
-            duration: .8,
-            delay: .2
-        });
+          <div className="texto-ecossistema">
+            <p>
+              Unimos robótica autônoma, inteligência artificial e uma
+              plataforma SaaS integrada para transformar operações
+              empresariais com eficiência, controle e escalabilidade.
+            </p>
+          </div>
 
-        gsap.from(".quadro-eco", {
-            scrollTrigger: {
-                trigger: ".cards-eco",
-                start: "top 75%"
-            },
-            y: 120,
-            opacity: 0,
-            stagger: .18,
-            duration: .9,
-            ease: "power4.out"
-        });
+        </motion.div>
 
-        gsap.to(".quadro-eco img", {
-            y: -10,
-            duration: 2,
-            repeat: -1,
-            yoyo: true,
-            stagger: .2,
-            ease: "sine.inOut"
-        });
+        <motion.div
+          className="cards-eco"
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: .2 }}
+        >
 
-        gsap.fromTo(".plasma-container",
-            {
-                opacity: .15
-            },
-            {
-                opacity: .45,
-                duration: 2,
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: "top 80%"
-                }
-            }
-        );
+          {cards.map((card) => (
 
-        gsap.utils.toArray(".quadro-eco").forEach((card) => {
+            <motion.div
+              key={card.numero}
+              className="quadro-eco"
+              variants={item}
+              whileHover={{
+                y: -10,
+                scale: 1.02,
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 250,
+              }}
+            >
 
-            card.addEventListener("mousemove", (e) => {
+              <div className="eco-top">
 
-                const rect = card.getBoundingClientRect();
+                <motion.img
+                  src={card.img}
+                  alt={card.titulo}
+                  animate={{
+                    y: [0, -8, 0],
+                  }}
+                  transition={{
+                    duration: 2.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
 
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
+                <span>{card.numero}</span>
 
-                const rotateY = (x / rect.width - .5) * 12;
-                const rotateX = -(y / rect.height - .5) * 12;
+              </div>
 
-                gsap.to(card, {
-                    rotateX,
-                    rotateY,
-                    transformPerspective: 1200,
-                    duration: .35
-                });
+              <h2>{card.titulo}</h2>
 
-            });
+              <p>{card.texto}</p>
 
-            card.addEventListener("mouseenter", () => {
+              <div className="eco-line"></div>
 
-                gsap.to(card, {
-                    y: -12,
-                    boxShadow: "0 0 45px rgba(55,199,255,.25)",
-                    duration: .3
-                });
+              <small>{card.footer}</small>
 
-            });
+            </motion.div>
 
-            card.addEventListener("mouseleave", () => {
+          ))}
 
-                gsap.to(card, {
-                    rotateX: 0,
-                    rotateY: 0,
-                    y: 0,
-                    boxShadow: "0 0 0 rgba(0,0,0,0)",
-                    duration: .4
-                });
+        </motion.div>
 
-            });
+      </div>
 
-        });
-
-    }, []);
-
-    return (
-
-        <section className="container-eco" ref={sectionRef}>
-
-            <Plasma
-                color="#00bfff"
-                speed={0.3}
-                opacity={0.35}
-                scale={1.4}
-            />
-
-            <div className="conteudo-eco">
-
-                <div className="container-textos">
-
-                    <div className="titulo-ecossistema">
-                        <h1>Um ecossistema completo de automação</h1>
-                        <h1>inteligente.</h1>
-                    </div>
-
-                    <div className="texto-ecossistema">
-                        <p>
-                            Unimos robótica autônoma, inteligência artificial e uma
-                            plataforma SaaS integrada para transformar operações
-                            empresariais com eficiência, controle e escalabilidade.
-                        </p>
-                    </div>
-
-                </div>
-
-                <div className="cards-eco">
-
-    <div className="quadro-eco">
-
-        <div className="eco-top">
-            <img src={RoboEco} alt="" />
-            <span>01</span>
-        </div>
-
-        <h2>Robótica Autônoma</h2>
-
-        <p>
-            Robôs inteligentes com sensores avançados, navegação autônoma e
-            decisões em tempo real.
-        </p>
-
-        <div className="eco-line"></div>
-
-        <small>Disponibilidade • 24/7</small>
-
-    </div>
-
-    <div className="quadro-eco">
-
-        <div className="eco-top">
-            <img src={IntegracaoEco} alt="" />
-            <span>02</span>
-        </div>
-
-        <h2>Integração Empresarial</h2>
-
-        <p>
-            Conecte ERPs, CRMs e plataformas corporativas através de APIs
-            inteligentes.
-        </p>
-
-        <div className="eco-line"></div>
-
-        <small>APIs • Cloud • ERP</small>
-
-    </div>
-
-    <div className="quadro-eco">
-
-        <div className="eco-top">
-            <img src={PlataformaEco} alt="" />
-            <span>03</span>
-        </div>
-
-        <h2>Controle Centralizado</h2>
-
-        <p>
-            Dashboard completo para acompanhar operações, robôs e indicadores
-            em tempo real.
-        </p>
-
-        <div className="eco-line"></div>
-
-        <small>Dashboard Inteligente</small>
-
-    </div>
-
-    <div className="quadro-eco">
-
-        <div className="eco-top">
-            <img src={AnaliseEco} alt="" />
-            <span>04</span>
-        </div>
-
-        <h2>Análise Inteligente</h2>
-
-        <p>
-            IA identifica padrões operacionais e antecipa falhas antes que
-            aconteçam.
-        </p>
-
-        <div className="eco-line"></div>
-
-        <small>Machine Learning</small>
-
-    </div>
-
-</div>
-
-            </div>
-
-        </section>
-
-    );
+    </section>
+  );
 };
 
 export default Ecossistema;

@@ -1,14 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import "./style.css";
-
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import IconPerguntas from "../../assets/images/iconPerguntas.png";
 import Mais from "../../assets/images/mais.png";
 import Menos from "../../assets/images/menos.png";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const perguntas = [
   {
@@ -47,59 +42,9 @@ const Perguntas = () => {
 
   const [ativo, setAtivo] = useState(0);
 
-  const page = useRef();
-
-  useEffect(() => {
-
-    const ctx = gsap.context(() => {
-
-      gsap.from(".faq-header > *", {
-        y: 60,
-        opacity: 0,
-        stagger: .15,
-        duration: 1,
-        ease: "power4.out"
-      });
-
-      gsap.from(".faq-item", {
-        scrollTrigger: {
-          trigger: ".faq-lista",
-          start: "top 80%"
-        },
-        y: 70,
-        opacity: 0,
-        stagger: .12,
-        duration: .8,
-        ease: "power3.out"
-      });
-
-      gsap.utils.toArray(".faq-item").forEach(card => {
-
-        card.addEventListener("mouseenter", () => {
-          gsap.to(card, {
-            y: -6,
-            duration: .3
-          });
-        });
-
-        card.addEventListener("mouseleave", () => {
-          gsap.to(card, {
-            y: 0,
-            duration: .3
-          });
-        });
-
-      });
-
-    }, page);
-
-    return () => ctx.revert();
-
-  }, []);
-
   return (
 
-    <section className="faq" ref={page}>
+    <section className="faq">
 
       <div className="faq-header">
 
@@ -138,35 +83,10 @@ const Perguntas = () => {
     </section>
 
   );
+
 };
 
 function FAQItem({ item, aberto, onClick }) {
-
-  const resposta = useRef();
-
-  useEffect(() => {
-
-    if (!resposta.current) return;
-
-    if (aberto) {
-
-      gsap.fromTo(
-        resposta.current,
-        {
-          height: 0,
-          opacity: 0
-        },
-        {
-          height: "auto",
-          opacity: 1,
-          duration: .45,
-          ease: "power2.out"
-        }
-      );
-
-    }
-
-  }, [aberto]);
 
   return (
 
@@ -183,16 +103,11 @@ function FAQItem({ item, aberto, onClick }) {
 
       </button>
 
-      {aberto && (
+      <div className={`faq-resposta ${aberto ? "aberta" : ""}`}>
 
-        <div
-          className="faq-resposta"
-          ref={resposta}
-        >
-          <p>{item.texto}</p>
-        </div>
+        <p>{item.texto}</p>
 
-      )}
+      </div>
 
     </div>
 

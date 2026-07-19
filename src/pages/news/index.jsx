@@ -1,15 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import "./style.css";
-
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
 
 import IconNews from "../../assets/images/iconNews.png";
 import Blog1 from "../../assets/images/blog1.png";
 import Blog2 from "../../assets/images/blog2.png";
 import Blog3 from "../../assets/images/blog3.png";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const blogs = [
   {
@@ -43,113 +39,20 @@ const blogs = [
 ];
 
 const News = () => {
-
-  const page = useRef();
-
-  useEffect(() => {
-
-    const ctx = gsap.context(() => {
-
-      gsap.from(".news-left > *", {
-        y: 70,
-        opacity: 0,
-        stagger: .15,
-        duration: 1,
-        ease: "power4.out"
-      });
-
-      gsap.from(".news-right", {
-        x: 120,
-        opacity: 0,
-        duration: 1.2,
-        ease: "power3.out"
-      });
-
-      gsap.from(".blog-card", {
-        scrollTrigger: {
-          trigger: ".blog-grid",
-          start: "top 75%"
-        },
-        y: 100,
-        opacity: 0,
-        scale: .9,
-        stagger: .18,
-        duration: 1,
-        ease: "power4.out"
-      });
-
-      gsap.from(".pagination", {
-        scrollTrigger: {
-          trigger: ".pagination",
-          start: "top 90%"
-        },
-        y: 40,
-        opacity: 0,
-        duration: .8
-      });
-
-      gsap.from(".newsletter > *", {
-        scrollTrigger: {
-          trigger: ".newsletter",
-          start: "top 80%"
-        },
-        y: 60,
-        opacity: 0,
-        stagger: .15,
-        duration: .9
-      });
-
-      gsap.utils.toArray(".blog-card").forEach((card) => {
-
-        const img = card.querySelector("img");
-
-        card.addEventListener("mouseenter", () => {
-
-          gsap.to(card, {
-            y: -15,
-            duration: .35,
-            boxShadow: "0 25px 60px rgba(0,180,255,.15)"
-          });
-
-          gsap.to(img, {
-            scale: 1.08,
-            duration: .35
-          });
-
-        });
-
-        card.addEventListener("mouseleave", () => {
-
-          gsap.to(card, {
-            y: 0,
-            duration: .35,
-            boxShadow: "0 0 0 rgba(0,0,0,0)"
-          });
-
-          gsap.to(img, {
-            scale: 1,
-            duration: .35
-          });
-
-        });
-
-      });
-
-    }, page);
-
-    return () => ctx.revert();
-
-  }, []);
-
   return (
-
-    <section className="news-page" ref={page}>
+    <section className="news-page">
 
       <section className="news-hero">
 
         <div className="news-hero-content">
 
-          <div className="news-left">
+          <motion.div
+            className="news-left"
+            initial={{ x: -80, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
 
             <h1>
               News &
@@ -162,23 +65,74 @@ const News = () => {
               empresarial.
             </p>
 
-          </div>
+          </motion.div>
 
-          <div className="news-right">
+          <motion.div
+            className="news-right"
+            initial={{ x: 80, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: .2 }}
+            animate={{
+              y: [0, -10, 0],
+            }}
+          >
             <img src={IconNews} alt="" />
-          </div>
+          </motion.div>
 
         </div>
 
       </section>
 
-      <section className="blog-grid">
+      <motion.section
+        className="blog-grid"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={{
+          visible: {
+            transition: {
+              staggerChildren: .18,
+            },
+          },
+        }}
+      >
 
         {blogs.map((blog, index) => (
 
-          <div className="blog-card" key={index}>
+          <motion.div
+            className="blog-card"
+            key={index}
+            variants={{
+              hidden: {
+                y: 70,
+                opacity: 0,
+                scale: .9,
+              },
+              visible: {
+                y: 0,
+                opacity: 1,
+                scale: 1,
+                transition: {
+                  duration: .7,
+                },
+              },
+            }}
+            whileHover={{
+              y: -15,
+              scale: 1.03,
+              boxShadow: "0 25px 60px rgba(0,180,255,.15)",
+            }}
+          >
 
-            <img src={blog.imagem} alt="" />
+            <motion.img
+              src={blog.imagem}
+              alt=""
+              whileHover={{
+                scale: 1.08,
+              }}
+              transition={{ duration: .3 }}
+            />
 
             <div className="blog-info">
 
@@ -190,25 +144,46 @@ const News = () => {
 
               <p>{blog.descricao}</p>
 
-              <button>Ler artigo</button>
+              <motion.button
+                whileHover={{
+                  scale: 1.05,
+                }}
+                whileTap={{
+                  scale: .95,
+                }}
+              >
+                Ler artigo
+              </motion.button>
 
             </div>
 
-          </div>
+          </motion.div>
 
         ))}
 
-      </section>
+      </motion.section>
 
-      <div className="pagination">
+      <motion.div
+        className="pagination"
+        initial={{ y: 30, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: .6 }}
+      >
 
         <div className="page-number active">1</div>
         <div className="page-number">2</div>
         <div className="page-number">3</div>
 
-      </div>
+      </motion.div>
 
-      <section className="newsletter">
+      <motion.section
+        className="newsletter"
+        initial={{ y: 70, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: .8 }}
+      >
 
         <h2>Receba novos conteúdos</h2>
 
@@ -223,14 +198,22 @@ const News = () => {
             placeholder="Seu melhor e-mail"
           />
 
-          <button>Inscrever-se</button>
+          <motion.button
+            whileHover={{
+              scale: 1.05,
+            }}
+            whileTap={{
+              scale: .95,
+            }}
+          >
+            Inscrever-se
+          </motion.button>
 
         </div>
 
-      </section>
+      </motion.section>
 
     </section>
-
   );
 };
 

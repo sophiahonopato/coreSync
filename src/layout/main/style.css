@@ -2,7 +2,7 @@
     position:relative;
 
     width:100%;
-    height:100vh;
+    min-height:100vh;
 
     display:flex;
     align-items:center;
@@ -44,7 +44,6 @@
 
 .conteudo-main{
     position:relative;
-
     z-index:3;
 
     max-width:650px;
@@ -52,7 +51,6 @@
 
 .titulo-main h1{
     color:#fff;
-
     font-size:72px;
     line-height:1.05;
     font-weight:700;
@@ -64,7 +62,6 @@
 
 .container-paragrafo-main p{
     color:#d7d7d7;
-
     font-size:20px;
     line-height:34px;
 }
@@ -74,47 +71,67 @@
     gap:20px;
 }
 
-.btn-main1{
+.btn-main1,
+.btn-main2{
     padding:18px 38px;
-
-    border:none;
     border-radius:12px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
 
+.btn-main1{
+    border:none;
     background:#1b8cff;
     color:#fff;
-
-    cursor:pointer;
-
-    transition:.3s;
 }
 
 .btn-main1:hover{
     transform:translateY(-3px);
     background:#3298ff;
+    box-shadow:0 10px 35px rgba(27,140,255,.45);
 }
 
 .btn-main2{
-    padding:18px 38px;
-
-    border-radius:12px;
     border:1px solid rgba(255,255,255,.7);
-
     background:transparent;
     color:#fff;
-
-    cursor:pointer;
-
-    transition:.3s;
 }
 
 .btn-main2:hover{
     background:rgba(255,255,255,.08);
+    transform:translateY(-3px);
 }
 
-@media(max-width:900px){
+/* ===========================
+   NOTEBOOK
+=========================== */
+
+@media(max-width:1200px){
 
     .titulo-main h1{
-        font-size:48px;
+        font-size:62px;
+    }
+
+    .conteudo-main{
+        max-width:560px;
+    }
+
+}
+
+/* ===========================
+   TABLET
+=========================== */
+
+@media(max-width:992px){
+
+    .container-main{
+        padding:0 6%;
+    }
+
+    .titulo-main h1{
+        font-size:54px;
     }
 
     .container-paragrafo-main p{
@@ -122,9 +139,88 @@
         line-height:30px;
     }
 
+}
+
+/* ===========================
+   CELULAR
+=========================== */
+
+@media(max-width:768px){
+
+    .container-main{
+        justify-content:center;
+        text-align:center;
+        padding:120px 24px 70px;
+    }
+
+    .conteudo-main{
+        width:100%;
+        max-width:100%;
+    }
+
+    .overlay{
+        background:rgba(0,0,0,.68);
+    }
+
+    .titulo-main h1{
+        font-size:44px;
+        line-height:1.08;
+    }
+
+    .container-paragrafo-main{
+        margin:24px 0;
+    }
+
+    .container-paragrafo-main p{
+        font-size:17px;
+        line-height:28px;
+    }
+
     .botoes-main{
+        width:100%;
         flex-direction:column;
-        align-items:flex-start;
+        align-items:center;
+        gap:16px;
+    }
+
+    .btn-main1,
+    .btn-main2{
+        width:100%;
+        max-width:320px;
+    }
+
+}
+
+/* ===========================
+   CELULAR PEQUENO
+=========================== */
+
+@media(max-width:480px){
+
+    .container-main{
+        min-height:100svh;
+        padding:105px 20px 50px;
+    }
+
+    .background-main{
+        object-position:72%;
+    }
+
+    .titulo-main h1{
+        font-size:36px;
+    }
+
+    .container-paragrafo-main p{
+        font-size:15px;
+        line-height:26px;
+    }
+
+    .btn-main1,
+    .btn-main2{
+        width:100%;
+        height:54px;
+        padding:0;
+        font-size:15px;
     }
 
 }
